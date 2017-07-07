@@ -1,0 +1,42 @@
+version: '2'
+services:
+
+  nginx:
+    build: './nginx'
+    container_name: 'example-nginx'
+    ports:
+      - 80:80
+    depends_on:
+      - rails
+    links:
+      - rails:rails
+
+  rails:
+    build:
+      context: ./rails
+      args:
+        app_name: example_app
+    container_name: 'example-rails'
+    volumes:
+      - ./rails/example_app:/app/example_app # source code
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysqld
+    extends:
+      file: ./mysql/mysql_env.yml
+      service: env
+    expose:
+      - 3000
+    command: bash -c 'bundle install && puma -C config/puma.rb'
+
+  mysql:
+    build: './mysql'
+    container_name: 'example-mysql'
+    volumes:
+      - ./mysql/volumes:/var/lib/mysql # datastore
+    extends:
+      file: ./mysql/mysql_env.yml
+      service: env
+    expose:
+      - 3306

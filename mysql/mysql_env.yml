@@ -1,0 +1,8 @@
+version: '2'
+services:
+  env:
+    environment:
+      MYSQL_ROOT_PASSWORD: passw@rd
+      MYSQL_USER: user
+      MYSQL_PASSWORD: passw@rd
+      TZ: "Asia/Tokyo"
