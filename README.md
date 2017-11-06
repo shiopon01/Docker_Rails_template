@@ -1,4 +1,4 @@
-# Docker_Rails_template
+# Docker template for Ruby on Rails
 
 Dockerを利用してRailsの開発環境を整えるテンプレート。
 
